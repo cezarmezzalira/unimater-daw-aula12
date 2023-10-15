@@ -26,15 +26,17 @@ Para isso, com a pasta do nosso projeto aberta no VS Code, vamos abrir o termina
 python -m venv .venv
 ```
 
-Ao executar esse comando, o VS Code irá detectar o novo ambiente virtual e irá ativa-lo automaticamente.
+Agora, vamos ativar nosso ambiente virtual com o comando abaixo:
+
+```bash
+source .venv/bin/activate
+```
 
 ## Criando o projeto e inicializando o repositório git
 
-Na raiz do projeto, vamos criar uma pasta chamada src. 
+Na raiz do projeto, vamos criar uma pasta chamada `src`.
 
-Dentro dela vamos criar uma pasta chamada app.
-
-Em seguida, vamos criar um arquivo chamado `__main__.py`
+Em seguida, dentro da pasta `src` vamos criar um arquivo chamado `main.py`
 
 Esse arquivo será o ponto de entrada da nossa aplicação Python.
 
@@ -56,3 +58,105 @@ Agora, vamos fazer nosso primeiro commit, adicionando todos os arquivos, atravé
 git add .
 git commit -m "Commit inicial"
 ```
+
+## Instalando o framework
+
+Para criarmos nossa API REST, vamos precisar de um servidor HTTP, que é fornecido pelo framework FastAPI, através de um conjunto de bibliotecas para criação de serviços web.
+
+Não se preocupe com esses termos por hora. Vamos iniciar do básico, construindo API's simples e subindo a complexidade aos poucos.
+
+### Instalando o FastAPI
+
+Para instalar o FastAPI, vamos abrir o terminal e executar o seguinte comando:
+
+```bash
+pip install "fastapi[all]"
+```
+
+### Criando o arquivo requirements.txt
+
+O arquivo `requirements.txt` é um arquivo gerado pelo pip, contendo todas bibliotecas que foram instaladas no nosso ambiente virtual.
+
+Essas bibliotecas também são chamadas de dependências do projeto, pois, o projeto depende delas para poder funcionar.
+
+Agora vamos executar o seguinte comando:
+
+```bash
+pip freeze > requirements.txt
+```
+
+## Criando a primeira rota
+
+Vamos abrir o arquivo `main.py` dentro da pasta `src`.
+
+Dentro dele vamos colocar o seguinte código:
+
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/")
+def root():
+    return {"message": "Olá pessoal!"}
+
+```
+
+O código acima faz o seguinte:
+
+Primeiro importamos a classe FastAPI da biblioteca fastapi:
+
+```python
+from fastapi import FastAPI
+```
+
+Na sequencia, criamos uma instancia da classe FastAPI com o nome `app`:
+
+```python
+app = FastAPI()
+```
+
+Por fim, criamos nossa primeira rota, usando a instancia do FastAPI, dizendo que a função `root()` é uma rota do tipo GET e ela irá retornar um objeto JSON com uma propriedade `message` com o valor `"Olá pessoal!"`:
+
+```python
+@app.get("/")
+def root():
+    return {"message": "Olá pessoal!"}
+```
+
+## Executando o projeto
+
+Após criarmos nossa primeira rota, vamos precisar testar e validar se está tudo funcionando.
+
+Para executar o nosso projeto, vamos até o terminal e vamos executar o seguinte comando:
+
+```bash
+uvicorn src.main:app --reload
+```
+
+A saída do terminal deverá ser algo parecido com isso:
+
+```bash
+INFO:     Will watch for changes in these directories: ['/home/cezar/dev/projects/unimater/DAW/aula12-api-rest-pratica']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [189580] using WatchFiles
+INFO:     Started server process [189629]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+```
+
+## Instalando o Postman para testar nossa aplicação
+
+Para nos ajudar em nosso desenvolvimento, vamos instalar uma extensão no nosso VS Code chamada Postman:
+1 - Copie o comando a seguir: `ext install Postman.postman-for-vscode`
+2 - Pressione as teclas `Ctrl + P`, cole o comando acima e pressione `Enter`
+
+## Testando a primeira rota
+
+Após instalar o Postman, vamos clicar no ícone do Postman na barra de atividades e em seguida clicamos em `New HTTP Request`.
+
+Na barra de endereço, vamos digitar `http://localhost:8000/` e clicamos em `Send`.
+
+O retorno deve ser parecido com a imagem abaixo:
+![Retorno da rota inicial](assets/rota_root_get.png)
