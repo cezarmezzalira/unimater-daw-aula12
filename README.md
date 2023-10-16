@@ -175,7 +175,6 @@ Reforçando o conceito das aulas anteriores, segue um exemplo de como são as me
 
 Caso queira se aprofundar ainda mais, acesse esse [link](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Messages) da MDN.
 
-
 ## Métodos HTTP
 
 Para representar ações do mundo real, um servidor HTTP consegue tratar algumas operações, também chamadas de métodos HTTP.
@@ -186,11 +185,17 @@ Isso torna as rotas das API's mais semânticas e claras, o que facilita muito o 
 
 Por padrão, para obtermos uma lista de usuários de uma API que está conectada em nosso banco de dados, a possível rota a ser usada seria `http://localhost:8000/users` a qual estaria implementada com método HTTP `GET`.
 
+Caso o recurso buscado exista, será retornado no body da resposta os dados desse recurso e o status code da resposta será o 200.
+
+Caso o recurso não seja encontrado, o body da resposta será vazio e o status code será o 404.
+
 ### Método POST
 
 Caso precisássemos criar um novo usuário, poderíamos fazer uma requisição para o mesmo endereço do exemplo anterior, `http://localhost:8000/users`, porém, usaríamos o método `POST`.
 
 Os dados do usuário são enviados dentro do `body`, ou seja o corpo da nossa request e dentro da nossa API eles são tratados de acordo com as regras de negócio da nossa aplicação.
+
+Caso a operação ocorra com sucesso, pode retornar uma resposta com status 200 e uma mensagem no body.
 
 ### Método PUT e método PATCH
 
@@ -208,5 +213,6 @@ Geralmente, ao fazer uma requisição de `DELETE`, precisamos informar na rota q
 
 O retorno dessa chamada geralmente é com um `body` vazio e com o status code 204 ou com uma mensagem no body e o status code 200.
 
-
 ## Criando uma rota do tipo POST
+
+A ser criado em aula
