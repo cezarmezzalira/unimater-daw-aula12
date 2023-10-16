@@ -160,3 +160,53 @@ Na barra de endereço, vamos digitar `http://localhost:8000/` e clicamos em `Sen
 
 O retorno deve ser parecido com a imagem abaixo:
 ![Retorno da rota inicial](assets/rota_root_get.png)
+
+## O que são request e response?
+
+Imagine o seguinte cenário: em uma conversa entre duas pessoas, sempre temos um transmissor e um receptor, ora somos transmissores, quando emitimos uma mensagem e ora somos receptores, quando recebemos uma mensagem e vice-versa.
+
+Tanto a request quanto a response são consideradas como mensagens que são trocadas entre o servidor e o usuário.
+
+Em um servidor web possuí o comportamento de request e response, onde nós como usuários de uma API somos os emissores fazendo uma request, ou requisição HTTP, para o servidor. Assim o servidor recebe uma mensagem, ele vai trata-la e responder para o usuário através de uma response, a qual sempre vai conter um status code, bem como pode ter algum conteúdo no corpo da resposta.
+
+Reforçando o conceito das aulas anteriores, segue um exemplo de como são as mensagens de request e response:
+
+![Request e Response HTTP](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Messages/httpmsgstructure2.png)
+
+Caso queira se aprofundar ainda mais, acesse esse [link](https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Messages) da MDN.
+
+
+## Métodos HTTP
+
+Para representar ações do mundo real, um servidor HTTP consegue tratar algumas operações, também chamadas de métodos HTTP.
+
+Isso torna as rotas das API's mais semânticas e claras, o que facilita muito o entendimento de o que exatamente cada rota faz e o que ela pode retornar ou não.
+
+### Método GET
+
+Por padrão, para obtermos uma lista de usuários de uma API que está conectada em nosso banco de dados, a possível rota a ser usada seria `http://localhost:8000/users` a qual estaria implementada com método HTTP `GET`.
+
+### Método POST
+
+Caso precisássemos criar um novo usuário, poderíamos fazer uma requisição para o mesmo endereço do exemplo anterior, `http://localhost:8000/users`, porém, usaríamos o método `POST`.
+
+Os dados do usuário são enviados dentro do `body`, ou seja o corpo da nossa request e dentro da nossa API eles são tratados de acordo com as regras de negócio da nossa aplicação.
+
+### Método PUT e método PATCH
+
+Os métodos `PUT` e `PATCH` são usados para quando queremos atualizar os dados em nossa API.
+
+O método `PUT` é utilizado em situações onde queremos atualizar por completo o recurso. Seguindo o nosso exemplo do usuário, caso desejássemos alterar todas as informações dele, passaríamos através do body as informações e todos os dados seriam atualizados.
+
+Já o método `PATCH` é utilizado em situações onde queremos atualizar apenas algumas informações de um determinado recurso. Ainda com o nosso exemplo do usuário, poderíamos por exemplo mudar apenas o seu nome, enviando no `body` essa informação e as demais informações não seriam alteradas.
+
+### Método DELETE
+
+O método `DELETE` é usado para efetuarmos a exclusão de um recurso através da nossa API.
+
+Geralmente, ao fazer uma requisição de `DELETE`, precisamos informar na rota qual o identificador do recurso que queremos excluir.
+
+O retorno dessa chamada geralmente é com um `body` vazio e com o status code 204 ou com uma mensagem no body e o status code 200.
+
+
+## Criando uma rota do tipo POST
